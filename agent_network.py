@@ -28,9 +28,13 @@ class Agent:
 		# [1, 393]
 		return tf.concat([policy, value], axis=1)
         
-	def act(self, x):
+	def act(self, x, is_training=True):
 		policy = self.predict(x)[:-1]
-		return np.random.choice(range(self.action_size), 1, p=policy)
+		if is_training:
+			act = np.random.choice(range(self.action_size), 1, p=policy)
+		else: 
+			act = np.argmax(policy) 
+		return act
 
 	def get_policy(self, x):
 		return self.predict(x)[:-1]

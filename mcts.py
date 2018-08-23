@@ -15,12 +15,11 @@ class MCTS:
 		next_state, reward, done = go.step(action)
 		
 		node = Node(next_state)
-		if node.state not in [n.state for n in self.nodes]:
-			node.policy = policy
-			node.n += 1
-			self.nodes.append(node)
-		else:
+		node.policy = policy
+		node.n += 1
 
+		if node.state not in [n.state for n in self.nodes]:
+			self.nodes.append(node)
 
 		return next_state
 
